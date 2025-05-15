@@ -23,7 +23,8 @@ await connectCloudinary();
 // Allow multiple origins
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://consultancy-tjdf.vercel.app"
+  "https://consultancy-tjdf.vercel.app",
+  "https://nellai-stores.vercel.app/"
 ];
 
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhook);
