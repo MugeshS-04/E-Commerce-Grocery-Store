@@ -1,7 +1,9 @@
 import React from 'react';
 import { assets, features } from '../assets/assets';
+import { useNavigate } from 'react-router-dom';
 
 const BottomBanner = () => {
+  const Navigate = useNavigate();
   return (
     <div className="relative mt-24 bg-gradient-to-r from-primary/5 to-primary/10 py-16 overflow-hidden">
       {/* Decorative elements */}
@@ -16,11 +18,6 @@ const BottomBanner = () => {
           {/* Image section - replaced with modern illustration */}
           <div className="lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-md">
-              <img 
-                src={assets.delivery_illustration} 
-                alt="Happy customer receiving delivery" 
-                className="w-full h-auto animate-float"
-              />
               <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-yellow-400 rounded-full mix-blend-multiply opacity-20 animate-pulse"></div>
             </div>
           </div>
@@ -54,7 +51,7 @@ const BottomBanner = () => {
               ))}
             </div>
 
-            <button className="mt-10 px-8 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
+            <button onClick={()=>Navigate("/products")} className="mt-10 px-8 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
               Shop Now
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
