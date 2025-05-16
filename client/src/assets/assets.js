@@ -70,6 +70,7 @@ import quinoa_image from "./quinoa_image.png";
 import brown_rice_image from "./brown_rice_image.png";
 import barley_image from "./barley_image.png";
 import cancel from "./cancel.jpg";
+import one from "./one.jpg"
 export const assets = {
   logo,
   search_icon,
@@ -99,6 +100,7 @@ export const assets = {
   bottom_banner_image_sm,
   add_address_iamge,
   box_icon,
+  one
 };
 
 export const categories = [
