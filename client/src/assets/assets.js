@@ -70,7 +70,8 @@ import quinoa_image from "./quinoa_image.png";
 import brown_rice_image from "./brown_rice_image.png";
 import barley_image from "./barley_image.png";
 import cancel from "./cancel.jpg";
-import one from "./one.jpg"
+import one from "./four.jpg"
+//import one from "./one.jpg"
 import two from "./two.jpg"
 import three from "./three.jpg"
 export const assets = {
