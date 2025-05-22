@@ -1,39 +1,54 @@
-import { assets, footerLinks } from "../assets/assets";
+import { assets } from "../assets/assets";
 
 const Footer = () => {
-
     return (
-        <div className="px-6 md:px-16 lg:px-24 xl:px-32 mt-24 bg-primary/10">
-            <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 border-b border-gray-500/30 text-gray-500">
-                <div>
-                     <div className="flex gap-1.5 items-center justify-center">
-                            <img className="h-16" src={assets.box_icon} alt="logo" />
-                            <h1 className="text-palegreen text-4xl font-bold">Nellai Stores</h1>
-                    
+        <div className="mt-24 mb-12 px-6 md:px-16 lg:px-24 xl:px-32">
+            <div className="bg-indigo-50 rounded-2xl shadow-sm">
+                {/* Main Footer Content */}
+                <div className="px-8 py-12 md:px-12 lg:px-16">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                        {/* Brand Logo and Tagline */}
+                        <div className="flex flex-col items-center md:items-start">
+                            <div className="flex items-center gap-3">
+                                <img className="h-10" src={assets.box_icon} alt="logo" />
+                                <h1 className="text-2xl font-bold text-indigo-800">Nellai Stores</h1>
                             </div>
-                    <p className="max-w-[410px] mt-6">
-                        We deliver fresh groceries and snacks straight to your door. Trusted by thousands, we aim to make your shopping experience simple and affordable.</p>
-                </div>
-                <div className="flex flex-wrap justify-between w-full md:w-[45%] gap-5">
-                    {footerLinks.map((section, index) => (
-                        <div key={index}>
-                            <h3 className="font-semibold text-base text-gray-900 md:mb-5 mb-2">{section.title}</h3>
-                            <ul className="text-sm space-y-1">
-                                {section.links.map((link, i) => (
-                                    <li key={i}>
-                                        <a href={link.url} className="hover:underline transition">{link.text}</a>
-                                    </li>
-                                ))}
-                            </ul>
+                            <p className="mt-4 text-center md:text-left max-w-md text-indigo-600">
+                                Fresh groceries delivered to your doorstep with care.
+                            </p>
                         </div>
-                    ))}
+
+                        {/* Simple Links */}
+                        <div className="flex flex-wrap justify-center gap-12 md:gap-16">
+                            <div>
+                                <h3 className="font-semibold text-indigo-800 mb-3">Quick Links</h3>
+                                <ul className="space-y-2 text-indigo-600">
+                                    <li><a href="/" className="hover:underline hover:text-indigo-800">Home</a></li>
+                                    <li><a href="/products" className="hover:underline hover:text-indigo-800">Products</a></li>
+                                    <li><a href="/contact" className="hover:underline hover:text-indigo-800">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-indigo-800 mb-3">Help</h3>
+                                <ul className="space-y-2 text-indigo-600">
+                                    <li><a href="/faq" className="hover:underline hover:text-indigo-800">FAQs</a></li>
+                                    <li><a href="/shipping" className="hover:underline hover:text-indigo-800">Shipping</a></li>
+                                    <li><a href="/returns" className="hover:underline hover:text-indigo-800">Returns</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Copyright */}
+                <div className="bg-indigo-100 rounded-b-2xl py-4 px-8">
+                    <p className="text-center text-sm text-indigo-600">
+                        © {new Date().getFullYear()} Nellai Stores. All rights reserved.
+                    </p>
                 </div>
             </div>
-            <p className="py-4 text-center text-sm md:text-base text-gray-500/80">
-                Copyright {new Date().getFullYear()} © NELLAISTORES.com All Right Reserved.
-            </p>
         </div>
     );
 };
 
-export default Footer
+export default Footer;

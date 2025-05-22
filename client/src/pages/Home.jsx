@@ -11,8 +11,6 @@ const Home = () => {
       <MainBanner />
       <Categories />
       <BestSeller />
-      <BottomBanner/>
-      <NewsLetter />
     </div>
   )
 }
