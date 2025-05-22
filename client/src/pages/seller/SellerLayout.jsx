@@ -32,40 +32,61 @@ const SellerLayout = () => {
 
     return (
         <>
-            <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white">
+            <div className="flex flex-col h-screen bg-gray-50">
 
-                
-                <Link to='/'>
-                     <div className="flex gap-1.5 items-center justify-center">
-                            <img className="h-16" src={assets.box_icon} alt="logo" />
-                            <h1 className="text-palegreen text-4xl font-bold">Nellai Stores</h1>
-                    
-                            </div>
-                </Link>
+  {/* Top Navbar */}
+  <div className="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-gray-200 shadow-sm px-6 md:px-10 py-4 flex items-center justify-between rounded-4xl">
+    <Link to='/'>
+      <div className="flex items-center gap-2">
+        <img className="h-12" src={assets.box_icon} alt="logo" />
+        <h1 className="text-indigo-600 text-2xl font-bold">Nellai Stores</h1>
+      </div>
+    </Link>
 
+    <div className="flex items-center gap-4 text-gray-600 text-sm">
+      <span className="font-medium text-gray-700">Hi! Admin</span>
+      <button 
+        onClick={logout} 
+        className="px-4 py-1.5 border border-gray-300 hover:border-indigo-500 text-gray-700 hover:text-indigo-600 rounded-full text-sm transition"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
 
-                <div className="flex items-center gap-5 text-gray-500">
-                    <p>Hi! Admin</p>
-                    <button onClick={logout} className='border rounded-full text-sm px-4 py-1'>Logout</button>
-                </div>
-            </div>
-            <div className="flex">
-               <div className="md:w-64 w-16 border-r h-[95vh] text-base border-gray-300 pt-4 flex flex-col">
-                {sidebarLinks.map((item) => (
-                    <NavLink to={item.path} key={item.name} end={item.path === "/seller"}
-                        className={({isActive})=>`flex items-center py-3 px-4 gap-3 
-                            ${isActive ? "border-r-4 md:border-r-[6px] bg-primary/10 border-primary text-primary"
-                                : "hover:bg-gray-100/90 border-white"
-                            }`
-                        }
-                    >
-                        <img src={item.icon} alt="" className="w-7 h-7" />
-                        <p className="md:block hidden text-center">{item.name}</p>
-                    </NavLink>
-                ))}
-            </div> 
-                <Outlet/>
-            </div>
+  {/* Main Layout */}
+  <div className="flex flex-1 overflow-hidden">
+
+    {/* Sidebar */}
+    <aside className="md:w-64 w-20 bg-white border-r border-gray-200 px-2 pt-6 pb-4 shadow-sm rounded-tr-3xl rounded-br-3xl">
+      <nav className="flex flex-col gap-1">
+        {sidebarLinks.map((item) => (
+          <NavLink 
+            to={item.path} 
+            key={item.name} 
+            end={item.path === "/seller"}
+            className={({ isActive }) =>
+              `flex items-center gap-4 px-4 py-3 rounded-lg transition-all text-sm
+              ${isActive 
+                ? "bg-indigo-100 text-indigo-700 font-medium ring-2 ring-indigo-300"
+                : "hover:bg-gray-100 text-gray-600"}`
+            }
+          >
+            <img src={item.icon} alt={item.name} className="w-6 h-6" />
+            <span className="hidden md:block">{item.name}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
+
+    {/* Main Content Area */}
+    <main className="flex-1 overflow-y-auto">
+      <Outlet />
+    </main>
+
+  </div>
+</div>
+
              
         </>
     );
