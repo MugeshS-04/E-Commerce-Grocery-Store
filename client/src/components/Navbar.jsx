@@ -21,7 +21,6 @@ const Navbar = () => {
       } catch (error) {
         toast.error(error.message)
       }
-        
     }
 
     useEffect(()=>{
@@ -31,84 +30,160 @@ const Navbar = () => {
     },[searchQuery])
 
   return (
-    <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
+    <>
+      {/* Spacer to push content down (same height as navbar + margin) */}
+      <div className="h-20"></div>
+      
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 flex items-center justify-between px-6 md:px-8 lg:px-10 py-3 bg-white rounded-full shadow-lg z-50 w-[95%] max-w-6xl border border-gray-200 transition-all">
 
-      <NavLink to='/' onClick={()=> setOpen(false)}>
+        <NavLink to='/' onClick={()=> setOpen(false)}>
+          <div className="flex gap-2 items-center justify-center whitespace-nowrap">
+            <img className="h-10" src={assets.box_icon} alt="logo" />
+            <h1 className="text-indigo-600 text-2xl font-bold hidden sm:block">Nellai Stores</h1>
+          </div>
+        </NavLink>
 
-      <div className="flex gap-1.5 items-center justify-center">
-        <img className="h-16" src={assets.box_icon} alt="logo" />
-        <h1 className="text-palegreen text-4xl font-bold">Nellai Stores</h1>
+        <div className="hidden sm:flex items-center gap-6">
+          <NavLink 
+            to='/' 
+            className={({isActive}) => `px-3 py-1.5 rounded-full ${isActive ? 'bg-indigo-100 text-indigo-700 font-medium' : 'hover:bg-gray-100 text-gray-700'}`}
+          >
+            Home
+          </NavLink>
+          <NavLink 
+            to='/products' 
+            className={({isActive}) => `px-3 py-1.5 rounded-full ${isActive ? 'bg-indigo-100 text-indigo-700 font-medium' : 'hover:bg-gray-100 text-gray-700'}`}
+          >
+            Products
+          </NavLink>
+          <NavLink 
+            to='/contact' 
+            className={({isActive}) => `px-3 py-1.5 rounded-full ${isActive ? 'bg-indigo-100 text-indigo-700 font-medium' : 'hover:bg-gray-100 text-gray-700'}`}
+          >
+            Contact
+          </NavLink>
 
+          <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
+            <input 
+              onChange={(e)=> setSearchQuery(e.target.value)} 
+              className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" 
+              type="text" 
+              placeholder="Search products" 
+            />
+            <img src={assets.search_icon} alt='search' className='w-4 h-4'/>
+          </div>
+
+          <div onClick={()=> navigate("/cart")} className="relative cursor-pointer p-2 rounded-full hover:bg-gray-100">
+            <img src={assets.nav_cart_icon} alt='cart' className='w-5 opacity-80'/>
+            <button className="absolute -top-1 -right-1 text-xs text-white bg-indigo-600 w-4 h-4 rounded-full flex items-center justify-center">
+              {getCartCount()}
+            </button>
+          </div>
+
+          {!user ? ( 
+            <button 
+              onClick={()=> setShowUserLogin(true)} 
+              className="cursor-pointer px-5 py-1.5 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-full text-sm font-medium"
+            >
+              Login
+            </button>
+          ) : (
+            <div className='relative group'>
+              <div className='p-1 rounded-full hover:bg-gray-100 cursor-pointer'>
+                <img src={assets.profile_icon} className='w-8' alt="" />
+              </div>
+              <ul className='hidden group-hover:block absolute top-12 right-0 bg-white shadow-lg border border-gray-200 py-2 w-40 rounded-xl text-sm z-40'>
+                <li 
+                  onClick={()=> {
+                    navigate("my-orders");
+                    setOpen(false);
+                  }} 
+                  className='px-4 py-2 hover:bg-indigo-50 cursor-pointer text-gray-700 hover:text-indigo-700'
+                >
+                  My Orders
+                </li>
+                <li 
+                  onClick={logout} 
+                  className='px-4 py-2 hover:bg-indigo-50 cursor-pointer text-gray-700 hover:text-indigo-700'
+                >
+                  Logout
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
-      </NavLink>
 
-      <div className="hidden sm:flex items-center gap-8">
-        <NavLink to='/'>Home</NavLink>
-        <NavLink to='/products'>All Product</NavLink>
-        <NavLink to='/contact'>Contact</NavLink>
-
-        <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
-          <input onChange={(e)=> setSearchQuery(e.target.value)} className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
-         <img src={assets.search_icon} alt='search' className='w-4 h-4'/>
+        <div className='flex items-center gap-4 sm:hidden'>
+          <div onClick={()=> navigate("/cart")} className="relative cursor-pointer p-1.5 rounded-full hover:bg-gray-100">
+            <img src={assets.nav_cart_icon} alt='cart' className='w-5 opacity-80'/>
+            <button className="absolute -top-1 -right-1 text-[10px] text-white bg-indigo-600 w-4 h-4 rounded-full flex items-center justify-center">
+              {getCartCount()}
+            </button>
+          </div>
+          <button 
+            onClick={() => open ? setOpen(false) : setOpen(true)} 
+            aria-label="Menu" 
+            className="p-1.5 rounded-full hover:bg-gray-100"
+          >
+            {!open ? <img src={assets.menu_icon} alt='menu' className='w-5'/> : <img src={assets.cancel} className='w-5' alt='cancel'/>}
+          </button>
         </div>
+        
+        {open && (
+          <div className={`${open ? 'flex' : 'hidden'} absolute top-14 right-4 bg-white shadow-xl py-3 flex-col items-start gap-1 px-4 text-sm rounded-xl z-20 w-48`}>
+            <NavLink 
+              to="/" 
+              onClick={()=> setOpen(false)}
+              className={({isActive}) => `w-full px-4 py-2 rounded-lg ${isActive ? 'bg-indigo-100 text-indigo-700' : 'hover:bg-gray-100'}`}
+            >
+              Home
+            </NavLink>
+            <NavLink 
+              to="/products" 
+              onClick={()=> setOpen(false)}
+              className={({isActive}) => `w-full px-4 py-2 rounded-lg ${isActive ? 'bg-indigo-100 text-indigo-700' : 'hover:bg-gray-100'}`}
+            >
+              Products
+            </NavLink>
+            {user && 
+              <NavLink 
+                to="/my-orders" 
+                onClick={()=> setOpen(false)}
+                className={({isActive}) => `w-full px-4 py-2 rounded-lg ${isActive ? 'bg-indigo-100 text-indigo-700' : 'hover:bg-gray-100'}`}
+              >
+                My Orders
+              </NavLink>
+            }
+            <NavLink 
+              to="/contact" 
+              onClick={()=> setOpen(false)}
+              className={({isActive}) => `w-full px-4 py-2 rounded-lg ${isActive ? 'bg-indigo-100 text-indigo-700' : 'hover:bg-gray-100'}`}
+            >
+              Contact
+            </NavLink>
 
-        <div onClick={()=> navigate("/cart")} className="relative cursor-pointer">
-          <img src={assets.nav_cart_icon} alt='cart' className='w-6 opacity-80'/>
-          <button className="absolute -top-2 -right-3 text-xs text-white bg-primary w-[18px] h-[18px] rounded-full">{getCartCount()}</button>
-        </div>
-
-      {!user ? ( <button onClick={()=> setShowUserLogin(true)} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
-          Login
-        </button>)
-        :
-        (
-          <div className='relative group'>
-            <img src={assets.profile_icon} className='w-10' alt="" />
-            <ul className='hidden group-hover:block absolute top-10 right-0 bg-white shadow border border-gray-200 py-2.5 w-30 rounded-md text-sm z-40'>
-              <li onClick={()=> navigate("my-orders")} className='p-1.5 pl-3 hover:bg-primary/10 cursor-pointer'>My Orders</li>
-              <li onClick={logout} className='p-1.5 pl-3 hover:bg-primary/10 cursor-pointer'>Logout</li>
-            </ul>
+            {!user ? (
+              <button 
+                onClick={()=>{
+                  setOpen(false);
+                  setShowUserLogin(true);
+                }} 
+                className="w-full mt-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-lg text-sm"
+              >
+                Login
+              </button>
+            ) : (
+              <button 
+                onClick={logout} 
+                className="w-full mt-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-lg text-sm"
+              >
+                Logout
+              </button>
+            )}
           </div>
         )}
-      </div>
-
-<div className='flex items-center gap-6 sm:hidden'>
-      <div onClick={()=> navigate("/cart")} className="relative cursor-pointer">
-          <img src={assets.nav_cart_icon} alt='cart' className='w-6 opacity-80'/>
-          <button className="absolute -top-2 -right-3 text-xs text-white bg-primary w-[18px] h-[18px] rounded-full">{getCartCount()}</button>
-        </div>
-    <button onClick={() => open ? setOpen(false) : setOpen(true)} aria-label="Menu" className="">
-        {!open ? <img  src={assets.menu_icon} alt='menu'/> : <img src={assets.cancel} className='h-6' alt='cancel'/>}
-      </button>
-</div>
-      
-
-      { open && (
-        <div className={`${open ? 'flex' : 'hidden'} absolute top-[100px] right-0 w-fit bg-white shadow-md py-4 flex-col items-start gap-2 px-10 text-sm md:hidden z-20`}>
-        <NavLink to="/" onClick={()=> setOpen(false)}>Home</NavLink>
-        <NavLink to="/products" onClick={()=> setOpen(false)}>All Product</NavLink>
-        {user && 
-        <NavLink to="/products" onClick={()=> setOpen(false)}>My Orders</NavLink>
-        }
-        <NavLink to="/" onClick={()=> setOpen(false)}>Contact</NavLink>
-
-        {!user ? (
-          <button onClick={()=>{
-            setOpen(false);
-            setShowUserLogin(true);
-          }} className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dull transition text-white rounded-full text-sm">
-          Login
-        </button>
-        ) : (
-          <button onClick={logout} className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dull transition text-white rounded-full text-sm">
-          Logout
-        </button>
-        )}
-        
-      </div>
-      )}
-
-    </nav>
+      </nav>
+    </>
   )
 }
 
