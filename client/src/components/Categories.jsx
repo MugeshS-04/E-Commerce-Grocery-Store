@@ -89,7 +89,7 @@ const Categories = () => {
                                     }}
                                 />
                             </div>
-                            <p className="text-sm font-medium text-center text-gray-800 group-hover:text-primary">{category.text}</p>
+                            <p className="text-sm font-medium text-center text-gray-800 group-hover:text-white">{category.text}</p>
                         </div>
                     ))}
                 </div>
